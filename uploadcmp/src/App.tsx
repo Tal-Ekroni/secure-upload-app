@@ -1,26 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import UploadFile from "./cmps/UploadFile";
-
 
 const App: React.FC = () => {
 
-
-
-  useEffect(() => {
-  }, []);
-
-
-
   return (
-    <div className="App">
-      <header className="app-header">
-        Request your loan man
-      </header>
+    <div className="app-container">
       <main>
         <UploadFile />
       </main>
-
-
     </div>
   );
 };
