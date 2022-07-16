@@ -3,7 +3,6 @@ import { useState } from "react";
 import { filesService } from "../services/uploadFiles.service";
 import UserTutorial from "./UserTutorial";
 
-
 const UploadFile: React.FC<{}> = ({ }) => {
   const SUCCESS_MSG = "File Uploaded Succsecfully."
   const ERROR_MSG = "Something went wrong."
@@ -16,16 +15,14 @@ const UploadFile: React.FC<{}> = ({ }) => {
     try {
       setIsLoading(true)
       const target = ev.target as HTMLInputElement;
-      let file = target.files?.[0]
-      let fileType
-      let fileName
-      if (file) {
-        fileName = file.name
-        fileType = file.type
-      }
 
+      const file = target.files?.[0]
+      const fileType = file?.name
+      const fileName = file?.type
+   
       const s3Url = await filesService.getS3URL(fileName, fileType)
-      const succes = await filesService.uploadFile(s3Url, file)
+      await filesService.uploadFile(s3Url, file)
+
       const fileInBucketLink = s3Url.split('?')[0]
       setFileInBucket(fileInBucketLink)
       setIsLoading(false)
@@ -56,7 +53,7 @@ const UploadFile: React.FC<{}> = ({ }) => {
         <CircularProgress />
       }
       {fileInBucket && <div className="uploaded-file-link">
-        <a href={fileInBucket}>Your new file is <span style={{textDecoration:"underline"}}>here</span></a>
+        <a href={fileInBucket}>Your new file is <span style={{ textDecoration: "underline" }}>here</span></a>
       </div>}
     </section>
   );
