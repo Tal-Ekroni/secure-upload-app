@@ -21,9 +21,7 @@ async function uploadFile(s3url, fileToUpload) {
         headers
     })
 
-    if (data.status === 200) {
-        return "Succsess"
-    }
+   return data
 }
 export const filesService = {
     getS3URL,
