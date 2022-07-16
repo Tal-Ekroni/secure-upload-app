@@ -10,6 +10,7 @@ const UploadFile: React.FC<{}> = ({ }) => {
 
   const [isLoading, setIsLoading] = useState(false)
   const [userMsgTxt, setUserMsgTxt] = useState('Upload')
+  const [fileInBucket, setFileInBucket] = useState('')
 
   const handleFile = async (ev: React.FormEvent) => {
     try {
@@ -25,8 +26,8 @@ const UploadFile: React.FC<{}> = ({ }) => {
 
       const s3Url = await filesService.getS3URL(fileName, fileType)
       const succes = await filesService.uploadFile(s3Url, file)
-      console.log(succes);
-
+      const fileInBucketLink = s3Url.split('?')[0]
+      setFileInBucket(fileInBucketLink)
       setIsLoading(false)
       setUserMsgTxt(SUCCESS_MSG)
     } catch (err) {
@@ -42,6 +43,7 @@ const UploadFile: React.FC<{}> = ({ }) => {
       {!isLoading ?
         <Button
           variant="contained"
+          style={{ width: "100%", backgroundColor: "#9246FF" }}
           component="label">
           {userMsgTxt}
           <input
@@ -53,6 +55,9 @@ const UploadFile: React.FC<{}> = ({ }) => {
         </Button> :
         <CircularProgress />
       }
+      {fileInBucket && <div className="uploaded-file-link">
+        <a href={fileInBucket}>Your new file is <span style={{textDecoration:"underline"}}>here</span></a>
+      </div>}
     </section>
   );
 };

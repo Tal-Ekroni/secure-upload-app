@@ -1,8 +1,15 @@
+@font-face {
+    font-family: mainFont;
+    src: url('../fonts/DMSans-Regular.ttf');
+}
+
 html,
 body {
     padding: 0;
     margin: 0;
     background-color: #161616;
+    font-family: mainFont;
+
 }
 
 .app-container {
@@ -24,5 +31,11 @@ body {
     justify-content: center;
     align-items: center;
     gap: 20px 0;
-    margin-top: 50px;
+    margin-top: 30px;
+}
+
+.uploaded-file-link>a {
+    margin-top: 15px;
+    color: white;
+    text-decoration: none;
 }
